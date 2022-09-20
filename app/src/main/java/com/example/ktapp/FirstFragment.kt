@@ -33,8 +33,13 @@ class FirstFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonFirst.setOnClickListener {
+            var toDoText = binding.editTextTask.text.toString() // captures the string from the edit text
+
+
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+
         }
+
     }
 
     override fun onDestroyView() {
