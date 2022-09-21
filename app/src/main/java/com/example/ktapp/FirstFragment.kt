@@ -33,10 +33,16 @@ class FirstFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonFirst.setOnClickListener {
-            var toDoText = binding.editTextTask.text.toString() // captures the string from the edit text
+            val toDoText = binding.editTextTask.text.toString() // captures the string from the edit text
+            val bundle = Bundle()
 
+            bundle.putString("text", toDoText)
+            val fragment = SecondFragment()
 
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+            fragment.arguments = bundle
+            fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment_content_main, fragment)?.commit()
+
+            //findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
 
         }
 
