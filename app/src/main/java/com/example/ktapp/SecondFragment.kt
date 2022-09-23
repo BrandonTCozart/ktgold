@@ -21,6 +21,8 @@ class SecondFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var todoArrayList : ArrayList<todoListClass>
 
+    private lateinit var sql : DataBaseHelper
+
     lateinit var todoText : Array<String>
 
     // This property is only valid between onCreateView and
@@ -40,7 +42,10 @@ class SecondFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        sql = DataBaseHelper(requireContext())
+
         dataInitialize()
+
 
         val layoutManager = LinearLayoutManager(context)
         recyclerView = view.findViewById(R.id.recyclerviewTODO)
@@ -50,9 +55,9 @@ class SecondFragment : Fragment() {
         recyclerView.adapter = adapter
 
 
-        val args = this.arguments
-        var argsString = args?.get("text")
-        //binding.textView.text = argsString.toString()
+        //val args = this.arguments
+        //var argsString = args?.get("text")
+
 
         binding.buttonSecond.setOnClickListener {
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
@@ -68,12 +73,27 @@ class SecondFragment : Fragment() {
 
         //todoArrayList = //database  /* This method will be called and will initialize the todoArryList that will then
     // be used to initialize the adapter above to the myadapter that requires the parameter of a List array*/
+
+        /*
         val random = todoListClass("random text", "today")
         val random1 = todoListClass("random text 2", "today")
 
+         */
+
         todoArrayList = arrayListOf<todoListClass>()
+
+        /*
         todoArrayList.add(random)
         todoArrayList.add(random1)
+         */
+
+
+        val stdList: ArrayList<todoListClass> = sql.getAllTODO()
+        for(n in 0..stdList.size-1){
+            todoArrayList.add(stdList[n])
+        }
+
+
 
     }
 }

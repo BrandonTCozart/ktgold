@@ -20,9 +20,8 @@ class DataBaseHelper(context:Context) : SQLiteOpenHelper(context, DATABASE_NAME,
 
     override fun onCreate(db: SQLiteDatabase?) {
 
-        val createTable = ("CREATE TABLE" + TABLE_NAME + " ( "
-                + DATE + "TEXT," + TEXT + "TEXT,"
-                + ")")
+        val createTable = ("CREATE TABLE " + TABLE_NAME + "("
+                + TEXT + " TEXT," + DATE + " TEXT" + ")")
 
         db?.execSQL(createTable)
 
@@ -80,5 +79,7 @@ class DataBaseHelper(context:Context) : SQLiteOpenHelper(context, DATABASE_NAME,
         return stdList
 
     }
+
+
 
 }

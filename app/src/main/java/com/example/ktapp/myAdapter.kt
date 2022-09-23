@@ -19,7 +19,7 @@ class myAdapter(private val todoList : ArrayList<todoListClass>) : RecyclerView.
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = todoList[position]
-        holder.checkBox.text = currentItem.text
+        holder.checkBox.text = currentItem.date
     }
 
     override fun getItemCount(): Int {
