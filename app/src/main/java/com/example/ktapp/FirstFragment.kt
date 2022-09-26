@@ -39,19 +39,21 @@ class FirstFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonFirst.setOnClickListener {
-
             val toDoText = binding.editTextTask.text.toString() // captures the string from the edit text
-            val random = todoListClass(toDoText, Calendar.DATE.toString())
 
-            sql.insertTODO(random)
+            if(toDoText.isBlank()){
+                findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+            }else{
+                val randomToDo = todoListClass(toDoText, Calendar.DATE.toString())
 
-            val bundle = Bundle() // passing the data in a bundle //
-            bundle.putString("text", toDoText) // passing the data in a bundle //
-            val fragment = SecondFragment() // passing the data in a bundle //
-            fragment.arguments = bundle // passing the data in a bundle //
-            parentFragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment_content_main, fragment)?.commit() // passing the data in a bundle //
+                sql.insertTODO(randomToDo)
 
-            //findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+                val bundle = Bundle() // passing the data in a bundle //
+                bundle.putString("text", toDoText) // passing the data in a bundle //
+                val fragment = SecondFragment() // passing the data in a bundle //
+                fragment.arguments = bundle // passing the data in a bundle //
+                parentFragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment_content_main, fragment)?.commit() // passing the data in a bundle //
+            }
 
         }
 

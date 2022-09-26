@@ -32,6 +32,13 @@ class DataBaseHelper(context:Context) : SQLiteOpenHelper(context, DATABASE_NAME,
         onCreate(db)
     }
 
+    fun deleteCol(todolistAction: String){
+
+        var db = this.readableDatabase
+        db.delete(TABLE_NAME, TEXT + "= '" + todolistAction + "'", null)
+
+    }
+
     fun insertTODO(std: todoListClass): Long{
         val db = this.writableDatabase
 

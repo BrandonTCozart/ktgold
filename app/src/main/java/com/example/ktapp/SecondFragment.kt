@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +21,7 @@ class SecondFragment : Fragment() {
     private lateinit var adapter: myAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var todoArrayList : ArrayList<todoListClass>
+    private lateinit var todolistAction: String
 
     private lateinit var sql : DataBaseHelper
 
@@ -62,6 +64,20 @@ class SecondFragment : Fragment() {
         binding.buttonSecond.setOnClickListener {
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
         }
+
+        adapter.setOnItemClickListener(object : myAdapter.onItemClickListener{
+            override fun onItemClick(position: Int) {
+                todolistAction = todoArrayList[position].text
+                Toast.makeText(context, " click $position", Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        binding.buttonDelete.setOnClickListener {
+
+            sql.deleteCol(todolistAction)
+
+        }
+
     }
 
     override fun onDestroyView() {
